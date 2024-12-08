@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$username = "root"; // Default XAMPP MySQL username
-$password = ""; // Default XAMPP MySQL password is empty
-$dbname = "GeoJunior"; // Your database name
+$username = "root";
+$password = "";
+$dbname = "GeoJunior";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
