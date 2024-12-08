@@ -1,4 +1,7 @@
 -- SQL Code  pour fait une Operation d'insertion
+
+USE GeoJunior;
+
 INSERT INTO  Pays (
     Nom,
     Population,
