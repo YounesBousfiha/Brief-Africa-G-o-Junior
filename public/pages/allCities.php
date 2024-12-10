@@ -1,18 +1,3 @@
-<?php
-
-include "../../config/database.php";
-include "../../includes/Controllers.php";
-include "../../includes/helpers.php";
-
-$countryID = $_GET['id'];
-
-if (isset($countryID)) {
-    $cities =  getAllvilles($conn, $countryID);
-} else {
-    echo "no value";
-}
-?>
-
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en">
 

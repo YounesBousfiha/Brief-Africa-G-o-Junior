@@ -1,10 +1,18 @@
-<!--<?php
-    include '../../includes/Controllers.php';
-    include '../../config/database.php';
+<?php
 
-    $data = getAllPays($conn);
-    // ID, Nom, Population, ImageURL, Description, Langue
-?>-->
+include "../../config/database.php";
+include "../../includes/Controllers.php";
+include "../../includes/helpers.php";
+
+$countryID = $_GET['id'];
+
+if (isset($countryID)) {
+    $cities =  getAllvilles($conn, $countryID);
+    $country = getSinglePay($conn, $countryID);
+} else {
+    echo "no value";
+}
+?>
 
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en" style="display: block;">
@@ -39,43 +47,16 @@
     <div class="container d-flex flex-column align-items-center py-4 py-xl-5">
         <div class="row mb-5">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
-                <h2>CountryName</h2>
-                <p class="w-lg-50">Curae hendrerit donec commodo hendrerit egestas tempus, turpis facilisis nostra nunc. Vestibulum dui eget ultrices.(Description About the Country)</p>
+                <h2><?php echo $country[0]['Nom'] ?></h2>
+                <p class="w-lg-50"><?php echo $country[0]['Description'] ?></p>
             </div>
         </div>
         <div class="row gy-4 row-cols-1 row-cols-md-2 w-100" style="max-width: 800px;">
-            <div class="col order-md-first">
-                <div class="card"><img class="card-img w-100 d-block" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png">
-                    <div class="card-img-overlay text-center d-flex flex-column justify-content-center align-items-center p-4">
-                        <h4>Title</h4>
-                        <p>Volutpat habitasse risus posuere, commodo fusce donec. Turpis donec tristique.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col order-md-2">
-                <div class="card"><img class="card-img w-100 d-block" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png">
-                    <div class="card-img-overlay text-center d-flex flex-column justify-content-center align-items-center p-4">
-                        <h4>Title</h4>
-                        <p>Volutpat habitasse risus posuere, commodo fusce donec. Turpis donec tristique.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col order-md-2">
-                <div class="card"><img class="card-img w-100 d-block" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png">
-                    <div class="card-img-overlay text-center d-flex flex-column justify-content-center align-items-center p-4">
-                        <h4>Title</h4>
-                        <p>Volutpat habitasse risus posuere, commodo fusce donec. Turpis donec tristique.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col order-md-2">
-                <div class="card"><img class="card-img w-100 d-block" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png">
-                    <div class="card-img-overlay text-center d-flex flex-column justify-content-center align-items-center p-4">
-                        <h4>Title</h4>
-                        <p>Volutpat habitasse risus posuere, commodo fusce donec. Turpis donec tristique.</p>
-                    </div>
-                </div>
-            </div>
+            <?php
+                foreach($cities as $city) {
+                    echo renderCity($city);
+                }
+            ?>
         </div>
     </div>
     <!--<nav style="display: flex; justify-content: center;">

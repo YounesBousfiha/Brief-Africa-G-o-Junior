@@ -38,7 +38,16 @@
     }
 
     function getSingleVille($conn) {}
-    function getSinglePay($conn) {}
+
+    function getSinglePay($conn, $id) {
+        $sql = 'SELECT * FROM Pays WHERE ID = ?';
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+        return $data;
+    }
 
 
 ?>

@@ -6,7 +6,7 @@
                  <div class='card-img-overlay text-center d-flex flex-column justify-content-center align-items-center p-4'>
                     <h4>{$data['Nom']}</h4>
                     <p>{$data['Description']}</p>
-                    <a href='../pages/allCities.php?id={$data['ID']}'>See More</a>
+                    <a href='../pages/country.php?id={$data['ID']}'>See More</a>
             </div>
         </div>
         </div>";
