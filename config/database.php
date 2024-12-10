@@ -1,8 +1,7 @@
 <?php
-// use define instead
 define('HOST', 'localhost');
 define('USER', 'root');
-define('PASSWORD', 'PUT_THE_VALUE_HERE');
+define('PASSWORD', 'MyStr0ng!Passw0rd');
 define('DB_NAME', 'GeoJunior');
 
 $conn = new mysqli(HOST, USER, PASSWORD, DB_NAME);

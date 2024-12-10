@@ -1,3 +1,11 @@
+<!--<?php
+    include '../../includes/Controllers.php';
+    include '../../config/database.php';
+
+    $data = getAllPays($conn);
+    // ID, Nom, Population, ImageURL, Description, Langue
+?>-->
+
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en" style="display: block;">
 
@@ -70,7 +78,7 @@
             </div>
         </div>
     </div>
-    <nav style="display: flex; justify-content: center;">
+    <!--<nav style="display: flex; justify-content: center;">
         <ul class="pagination">
             <li class="page-item"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
             <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -80,7 +88,7 @@
             <li class="page-item"><a class="page-link" href="#">5</a></li>
             <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
         </ul>
-    </nav>
+    </nav>-->
     <footer class="text-center">
         <div class="container text-muted py-4 py-lg-5">
             <ul class="list-inline">

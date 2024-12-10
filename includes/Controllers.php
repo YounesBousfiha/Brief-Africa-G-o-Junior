@@ -1,5 +1,5 @@
 <?php
-    require "./config.php";
+    include "../config/database.php";
 
     function addNewPay($conn, $nom, $population, $langue) {
 
@@ -19,7 +19,7 @@
 
 
     // queries for administrator & Students
-    function getAllPays(mysqli $conn): array {
+    function getAllPays($conn) {
         $sql = 'SELECT * FROM Pays';
         $result = mysqli_query($conn, $sql);
         $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
