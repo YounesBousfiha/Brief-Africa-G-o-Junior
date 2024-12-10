@@ -4,6 +4,18 @@
     include '../../includes/helpers.php';
 
     $data = getAllPays($conn);
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $nom = htmlspecialchars($_POST['nom']);
+        $description = htmlspecialchars($_POST['description']);
+        $population = htmlspecialchars($_POST['population']);
+        $langue = htmlspecialchars($_POST['langue']);
+        $imageURL = "https://fakeimage.com/hello.png";
+
+        addNewPay($conn, $nom, $description, $population, $langue, $imageURL);
+    }
+    //formValidation($nom, $description, $population, $langue);
+    //var_dump($_POST);
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +31,44 @@
 </head>
 
 <body>
+<div class="modal fade" id="ajouteModal" tabindex="-1" aria-labelledby="ajouteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ajouteModalLabel">Add new Pays</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modaSignupl-body px-3">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">Nom</label>
+                            <input type="text" name="nom" class="form-control" placeholder="nom...">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" name="description" placeholder="Description..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Population</label>
+                            <input type="number" name="population" class="form-control" placeholder="Population...">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Langue</label>
+                            <input type="text" name="langue" name="population" class="form-control" placeholder="langue...">
+                        </div>
+                       <!-- <div class="mb-3">
+                            <label class="form-label">Image</label>
+                            <input type="file" name="langue" name="population" class="form-control" placeholder="image...">
+                        </div> -->
+                        <div>
+                            <button type="submit" class="btn btn-primary w-100">Add New Pay</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <nav class="navbar navbar-expand-md bg-body py-3">
         <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bezier">
                         <path fill-rule="evenodd" d="M0 10.5A1.5 1.5 0 0 1 1.5 9h1A1.5 1.5 0 0 1 4 10.5v1A1.5 1.5 0 0 1 2.5 13h-1A1.5 1.5 0 0 1 0 11.5zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm10.5.5A1.5 1.5 0 0 1 13.5 9h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM6 4.5A1.5 1.5 0 0 1 7.5 3h1A1.5 1.5 0 0 1 10 4.5v1A1.5 1.5 0 0 1 8.5 7h-1A1.5 1.5 0 0 1 6 5.5zM7.5 4a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"></path>
@@ -34,6 +84,10 @@
             </div>
         </div>
     </nav>
+    <div class="d-flex justify-content-center sticky-top bg-white" style="height: 60px;">
+        <button type="button" class="btn btn-primary left-50 fs-3"  data-bs-toggle="modal" data-bs-target="#ajouteModal">Add New Pay</button>
+    </div>
+
     <div class="container d-flex flex-column align-items-center py-4 py-xl-5">
         <div class="row gy-4 row-cols-1 row-cols-md-2 w-100" style="max-width: 800px;">
             <?php
@@ -41,7 +95,6 @@
                     echo renderPays($entrie);
                 }
             ?>
-        </div><button class="btn btn-primary" type="button" style="margin-top: 12px;width: 300px;font-size: 24px;">Ajoute une Pays</button>
         <!--<nav style="margin-top: 12px;">
             <ul class="pagination">
                 <li class="page-item"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
@@ -53,6 +106,7 @@
                 <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
             </ul>
         </nav>-->
+        </div>
     </div>
     <footer class="text-center">
         <div class="container text-muted py-4 py-lg-5">

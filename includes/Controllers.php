@@ -1,21 +1,21 @@
 <?php
     include "../config/database.php";
 
-    function addNewPay($conn, $nom, $population, $langue) {
-
-        // Pass the Argument to our function
-        // verifie the Argumenet
-        // Craft the Query 
-        // Execute the query@YounesBousfiha revient de verfier cette aprés l'implementation d'une mechanisme pour generée URL pour les Images
-
-
-        // return a status
+    function addNewPay($conn, $nom, $description, $population, $langue, $imageURL) {
+        $sql = 'INSERT INTO Pays (Nom, Population, Langue, Description, ImageURL) Values(?, ?, ?, ?, ?)';
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('sisss', $nom, $population, $langue, $description, $imageURL);
+        $stmt->execute();
     }
 
     function updatePay($conn) {} // TODO: add argements with annotations
     function removePay($conn) {} // TODO: add argements with annotations
 
-    function addNewVille($conn) {} // TODO: add argements with annotations
+    // Update cette function later pour uploader les image
+    function addNewVille($conn) {
+
+    }
+
     function updateVille($conn) {} // TODO: add argements with annotations
     function removeVille($conn) {} // TODO: add argements with annotations
 
@@ -67,6 +67,18 @@
         }
        }
        return $cities;
+    }
+
+    function formValidation($nom, $description, $population, $langue) {
+        if(empty($nom)) {
+
+        } elseif (empty($description)) {
+
+        } elseif (empty($population)) {
+
+        } elseif(empty($langue)) {
+
+        }
     }
 
 
