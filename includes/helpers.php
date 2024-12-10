@@ -26,6 +26,11 @@
                 <h4>{$city['Nom']}</h4>
                 <p>{$city['Description']}</p>
                 <a href='../pages/city.php?id={$city['ID']}'>see More</a>
+                <form action='../pages/country.php?id={$_GET['id']}' method='POST'  class='d-flex'>
+                        <input type='hidden' name='ville_id' value='{$city['ID']}'>
+                        <button type='submit' name='action' value='delete'>Delete</button>
+                        <button type='submit' name='action' value='modify'>Modifie</button>
+                </form>
             </div>
         </div>
     </div>";

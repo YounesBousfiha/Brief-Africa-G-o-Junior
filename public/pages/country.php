@@ -14,15 +14,24 @@ if (isset($countryID)) {
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nom = htmlspecialchars($_POST['nom']);
-    $description = htmlspecialchars($_POST['description']);
-    $imageURL = "https://fakeimage.com/hello.png";
-    $type = htmlspecialchars($_POST['type']);
-    $pays_id = htmlspecialchars($_GET['id']);
-    // Validation Needed
-    addNewVille($conn, $pays_id, $nom, $description, $imageURL, $type);
+    $id = htmlspecialchars($_POST['ville_id']);
+    $action = $_POST['action'];
 
-    
+    if ($action == 'delete') {
+        removeVille($conn, $id);
+        header("Refresh:0");
+    } elseif ($action == 'modify') {
+        // modifiy function
+    } else {
+        $nom = htmlspecialchars($_POST['nom']);
+        $description = htmlspecialchars($_POST['description']);
+        $imageURL = "https://fakeimage.com/hello.png";
+        $type = htmlspecialchars($_POST['type']);
+        $pays_id = htmlspecialchars($_GET['id']);
+        // Validation Needed
+        addNewVille($conn, $pays_id, $nom, $description, $imageURL, $type);
+        header("Refresh:0");
+    }
 }
 ?>
 
