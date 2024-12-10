@@ -27,15 +27,18 @@
     }
 
 
-    function getAllvilles(mysqli $conn) {
-        /*$sql = 'SELECT * FROM Villes WHERE '; // need to take Payd_ID
-        $result = mysqli_query($conn, $sql);
-        $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        return $data;*/
+    function getAllvilles($conn, $id) {
+        $sql = 'SELECT * FROM Villes WHERE Pays_id = ?';
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+        return $data;
     }
 
-    function getSingleVille($conn) {} // TODO: add argements with annotations
-    function getSinglePay($conn) {} // TODO: add argements with annotations
+    function getSingleVille($conn) {}
+    function getSinglePay($conn) {}
 
 
 ?>
