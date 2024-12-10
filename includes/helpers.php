@@ -1,4 +1,5 @@
 <?php
+
     function renderPays($data) {
         return "
         <div class='col order-md-first'>
@@ -7,6 +8,11 @@
                     <h4>{$data['Nom']}</h4>
                     <p>{$data['Description']}</p>
                     <a href='../pages/country.php?id={$data['ID']}'>See More</a>
+                    <form action='../pages/allCountries.php' method='POST'  class='d-flex'>
+                        <input type='hidden' name='pays_id' value='{$data['ID']}'>
+                        <button type='submit' name='action' value='delete'>Delete</button>
+                        <button type='submit' name='action' value='modify'>Modifie</button>
+                    </form>
             </div>
         </div>
         </div>";

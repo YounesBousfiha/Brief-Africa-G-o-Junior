@@ -10,7 +10,13 @@
     }
 
     function updatePay($conn) {} // TODO: add argements with annotations
-    function removePay($conn) {} // TODO: add argements with annotations
+
+    function removePay($conn, $pays_id) {
+        $sql = 'DELETE FROM Pays WHERE id = ?';
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $pays_id);
+        $stmt->execute();
+    }
 
     // Update cette function later pour uploader les image
     function addNewVille($conn, $pays_id, $nom, $description, $imageURL, $type) {
@@ -21,7 +27,13 @@
     }
 
     function updateVille($conn) {} // TODO: add argements with annotations
-    function removeVille($conn) {} // TODO: add argements with annotations
+
+    function removeVille($conn, $vile_id) {
+        $sql = 'DELETE FROM Villes WHERE ID = ?';
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $vile_id);
+        $stmt->execute();
+    }
 
 
     // queries for administrator & Students
