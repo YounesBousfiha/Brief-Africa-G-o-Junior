@@ -1,6 +1,7 @@
 <?php
     include "../config/database.php";
 
+    // Update cette function later pour uploader les image
     function addNewPay($conn, $nom, $description, $population, $langue, $imageURL) {
         $sql = 'INSERT INTO Pays (Nom, Population, Langue, Description, ImageURL) Values(?, ?, ?, ?, ?)';
         $stmt = $conn->prepare($sql);
@@ -12,8 +13,11 @@
     function removePay($conn) {} // TODO: add argements with annotations
 
     // Update cette function later pour uploader les image
-    function addNewVille($conn) {
-
+    function addNewVille($conn, $pays_id, $nom, $description, $imageURL, $type) {
+        $sql = 'INSERT INTO Villes (Pays_ID, Nom, Description, ImageURL, Type ) VALUES (?, ?, ?, ?, ?)';
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('issss', $pays_id, $nom, $description, $imageURL, $type);
+        $stmt->execute();
     }
 
     function updateVille($conn) {} // TODO: add argements with annotations
