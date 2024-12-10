@@ -1,3 +1,21 @@
+<?php
+include "../../config/database.php";
+include "../../includes/Controllers.php";
+include "../../includes/helpers.php";
+
+$city_ID = $_GET['id'];
+
+if(isset($city_ID)) {
+    $city = getSingleVille($conn, $city_ID);
+    $allcities = getAllvilles($conn, $city[0]['Pays_ID']);
+} else {
+    echo "No Value";
+}
+
+$filteredCities = eliminateCity($city, $allcities);
+
+?>
+
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en" style="display: block;">
 
@@ -34,8 +52,8 @@
     <div class="container d-flex flex-column align-items-center py-4 py-xl-5">
         <div class="row mb-5">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
-                <h2 class="pe-0">Cities</h2>
-                <p class="w-lg-50">Description</p>
+                <h2 class="pe-0"><?php echo $city[0]['Nom'] ?></h2>
+                <p class="w-lg-50"><?php echo $city[0]['Description'] ?></p>
             </div>
         </div>
     </div>
@@ -43,30 +61,15 @@
     <div class="container">
         <h1 class="text-center" style="margin-top: 24px;margin-bottom: 24px;">See Other Cities</h1>
         <div class="row">
-            <div class="col-md-4">
-                <div class="card"><img class="card-img w-100 d-block" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png">
-                    <div class="card-img-overlay text-center d-flex flex-column justify-content-center align-items-center p-4">
-                        <h4>Cities</h4>
-                        <p>Volutpat habitasse risus posuere, commodo fusce donec. Turpis donec tristique.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card"><img class="card-img w-100 d-block" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png">
-                    <div class="card-img-overlay text-center d-flex flex-column justify-content-center align-items-center p-4">
-                        <h4>Cities</h4>
-                        <p>Volutpat habitasse risus posuere, commodo fusce donec. Turpis donec tristique.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card"><img class="card-img w-100 d-block" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png">
-                    <div class="card-img-overlay text-center d-flex flex-column justify-content-center align-items-center p-4">
-                        <h4>Cites</h4>
-                        <p>Volutpat habitasse risus posuere, commodo fusce donec. Turpis donec tristique.</p>
-                    </div>
-                </div>
-            </div>
+            <?php
+                $count = 0;
+                shuffle($filteredCities);
+                foreach($filteredCities as $city) {
+                    if($count < 3) {
+                        echo renderFiltredCity($city);
+                    }
+                }
+            ?>
         </div>
     </div>
     <footer class="text-center">
