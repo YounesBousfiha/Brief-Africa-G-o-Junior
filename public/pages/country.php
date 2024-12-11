@@ -36,7 +36,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $type = htmlspecialchars($_POST['type']);
         $pays_id = htmlspecialchars($_GET['id']);
         $created_by = 1; // Rend cette ID dynamique selong le Creator
-        // Validation Needed
+        
         addNewVille($conn, $pays_id, $nom, $description, $imageURL, $type, $created_by);
         header("Refresh:0");
     }

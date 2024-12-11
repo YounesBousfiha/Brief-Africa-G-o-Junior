@@ -4,6 +4,18 @@
     include '../../includes/helpers.php';
 
     $data = getAllPays($conn);
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $nom = htmlspecialchars($_POST['nom']);
+        $description = htmlspecialchars($_POST['description']);
+        $imageURL = "https://fakeimage.com/hello.png";
+        $langue = "Arabic";
+        $population = htmlspecialchars($_POST['population']);
+        $created_by = 1; // Rend cette ID dynamique selong le Creator
+        $continent_id = 1;
+        addNewPay($conn, $nom, $description, $population, $langue, $imageURL, $continent_id, $created_by);
+        header("Refresh:0");
+    }
 ?>
 
 <!DOCTYPE html>

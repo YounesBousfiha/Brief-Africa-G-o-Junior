@@ -47,7 +47,7 @@
     }
 
 
-    // queries for administrator & Students
+
     function getAllPays($conn) {
         $sql = 'SELECT * FROM Pays';
         $result = mysqli_query($conn, $sql);
@@ -97,16 +97,17 @@
     }
 
     function formValidation($nom, $description, $population, $langue) {
+        $Erros =['nomError' => '',  'DescError' => '', 'populError' => '', 'langueError' => ''];
         if(empty($nom)) {
-
+            $Erros['nomError'] = "Invalid Name";
         } elseif (empty($description)) {
-
+            $Erros['DescError'] = "Invalid Description";
         } elseif (empty($population)) {
-
+            $Erros['populError'] = 'Invalid Population Error';
         } elseif(empty($langue)) {
-
+            $Erros['langueError'] = 'Invalid Langue Syntax';
         }
+
+        return $Erros;
     }
-
-
 ?>
