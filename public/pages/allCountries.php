@@ -13,8 +13,11 @@
         $population = htmlspecialchars($_POST['population']);
         $created_by = 1; // Rend cette ID dynamique selong le Creator
         $continent_id = 1;
-        addNewPay($conn, $nom, $description, $population, $langue, $imageURL, $continent_id, $created_by);
-        header("Refresh:0");
+        $Errors = formValidation($nom, $description, $population, $langue);
+        if(empty($Errors)) {
+            addNewPay($conn, $nom, $description, $population, $langue, $imageURL, $continent_id, $created_by);
+            header("Refresh:0");
+        }
     }
 ?>
 
@@ -87,7 +90,13 @@
     <div class="d-flex justify-content-center sticky-top bg-white" style="height: 60px;">
         <button type="button" class="btn btn-primary left-50 fs-3"  data-bs-toggle="modal" data-bs-target="#ajouteModal">Add New Pay</button>
     </div>
-
+    <?php
+        if(!empty($Errors)) {
+            foreach($Errors as $errkey => $errvalue) {
+                echo "<div class='alert alert-warning' role='alert'>Field Err: ${errkey}: ${errvalue}</div>";
+            }
+        }
+    ?>
     <div class="container d-flex flex-column align-items-center py-4 py-xl-5">
         <div class="row gy-4 row-cols-1 row-cols-md-2 w-100" style="max-width: 800px;">
             <?php
@@ -130,6 +139,14 @@
         </div>
     </footer>
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+    setTimeout(function() {
+        var alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+            alert.style.display = 'none';
+        });
+    }, 3000);
+</script>
 </body>
 
 </html>

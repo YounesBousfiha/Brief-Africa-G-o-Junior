@@ -97,15 +97,15 @@
     }
 
     function formValidation($nom, $description, $population, $langue) {
-        $Erros =['nomError' => '',  'DescError' => '', 'populError' => '', 'langueError' => ''];
+        $Erros =[];
         if(empty($nom)) {
-            $Erros['nomError'] = "Invalid Name";
+            $Erros['nomError'] = "Empty Field Name";
         } elseif (empty($description)) {
-            $Erros['DescError'] = "Invalid Description";
+            $Erros['DescError'] = "empty field Description";
         } elseif (empty($population)) {
-            $Erros['populError'] = 'Invalid Population Error';
+            $Erros['populError'] = 'empty field Population';
         } elseif(empty($langue)) {
-            $Erros['langueError'] = 'Invalid Langue Syntax';
+            $Erros['langueError'] = 'empty field langue';
         }
 
         return $Erros;
