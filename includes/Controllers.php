@@ -2,14 +2,19 @@
     include "../config/database.php";
 
     // Update cette function later pour uploader les image
-    function addNewPay($conn, $nom, $description, $population, $langue, $imageURL) {
-        $sql = 'INSERT INTO Pays (Nom, Population, Langue, Description, ImageURL) Values(?, ?, ?, ?, ?)';
+    function addNewPay($conn, $nom, $description, $population, $langue, $imageURL, $Continent_id, $created_by) {
+        $sql = 'INSERT INTO Pays (Nom, Population, Langue, Description, ImageURL, Continent_ID, Created_BY) Values(?, ?, ?, ?, ?, ?, ?)';
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sisss', $nom, $population, $langue, $description, $imageURL);
+        $stmt->bind_param('sisssii', $nom, $population, $langue, $description, $imageURL, $Continent_id, $created_by);
         $stmt->execute();
     }
 
-    function updatePay($conn) {} // TODO: add argements with annotations
+    function updatePay($conn, $pay_id, $newNom, $newDescri, $newPopulation, $newImage, $newlangue) {
+        $sql = 'UPDATE Pays SET Nom = ?, Description = ?, Population = ?, ImageUrl = ?, Langue = ? WHERE ID = ?';
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ssissi', $newNom, $newDescri, $newPopulation, $newImage, $newlangue, $pay_id);
+        $stmt->execute();
+    } 
 
     function removePay($conn, $pays_id) {
         $sql = 'DELETE FROM Pays WHERE id = ?';
@@ -19,14 +24,20 @@
     }
 
     // Update cette function later pour uploader les image
-    function addNewVille($conn, $pays_id, $nom, $description, $imageURL, $type) {
-        $sql = 'INSERT INTO Villes (Pays_ID, Nom, Description, ImageURL, Type ) VALUES (?, ?, ?, ?, ?)';
+    function addNewVille($conn, $pays_id, $nom, $description, $imageURL, $type, $created_by) {
+        $sql = 'INSERT INTO Villes (Pays_ID, Nom, Description, ImageURL, Type, Created_BY) VALUES (?, ?, ?, ?, ?, ?)';
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('issss', $pays_id, $nom, $description, $imageURL, $type);
+        $stmt->bind_param('issssi', $pays_id, $nom, $description, $imageURL, $type, $created_by);
         $stmt->execute();
     }
 
-    function updateVille($conn) {} // TODO: add argements with annotations
+    function updateVille($conn, $city_id, $newNom, $newDescri, $newImage, $newType) {
+        $sql = 'UPDATE Villes SET Nom = ?, Description = ?, ImageURL = ?, Type = ? WHERE ID = ?';
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ssssi', $newNom, $newDescri, $newImage, $newType, $city_id);
+        $stmt->execute();
+
+    }
 
     function removeVille($conn, $vile_id) {
         $sql = 'DELETE FROM Villes WHERE ID = ?';

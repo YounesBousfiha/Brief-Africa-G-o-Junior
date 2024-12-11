@@ -14,22 +14,30 @@ if (isset($countryID)) {
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = htmlspecialchars($_POST['ville_id']);
     $action = $_POST['action'];
 
     if ($action == 'delete') {
-        removeVille($conn, $id);
+        removePay($conn, $countryID);
         header("Refresh:0");
     } elseif ($action == 'modify') {
-        // modifiy function
+        $nom = htmlspecialchars($_POST['nom']);
+        $description = htmlspecialchars($_POST['description']);
+        $population = htmlspecialchars($_POST['population']);
+        $imageURL = "https://helloimage.com/image.png";
+        $langue = "English";
+
+        updatePay($conn, $countryID, $nom, $description, $population, $imageURL, $langue);
+
+        header("Refresh:0");
     } else {
         $nom = htmlspecialchars($_POST['nom']);
         $description = htmlspecialchars($_POST['description']);
         $imageURL = "https://fakeimage.com/hello.png";
         $type = htmlspecialchars($_POST['type']);
         $pays_id = htmlspecialchars($_GET['id']);
+        $created_by = 1; // Rend cette ID dynamique selong le Creator
         // Validation Needed
-        addNewVille($conn, $pays_id, $nom, $description, $imageURL, $type);
+        addNewVille($conn, $pays_id, $nom, $description, $imageURL, $type, $created_by);
         header("Refresh:0");
     }
 }
@@ -93,7 +101,43 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </div>
-
+</div>
+<div class="modal fade" id="ModifieModal" tabindex="-1" aria-labelledby="ModifieModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ajouteModalLabel">Modifie Les Information</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modaSignupl-body px-3">
+                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . '?id=' . $_GET['id']);?>" method="POST">
+                            <div class="mb-3">
+                                <label class="form-label">Nom</label>
+                                <input type="text" name="nom" class="form-control" placeholder="nom..." value="">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" name="description" placeholder="Description..."></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Population</label>
+                                <input type="number" name="population" class="form-control" placeholder="Population...">
+                            </div>
+                        <!-- <div class="mb-3">
+                                <label class="form-label">Image</label>
+                                <input type="file" name="langue" name="population" class="form-control" placeholder="image...">
+                            </div> -->
+                            <div class="d-flex  flex-col justify-content-around">
+                                <button type="submit" name='action' value='modify' class="btn btn-primary">Update</button>
+                                <button type="submit" name='action' value='delete' class="btn btn-danger" >Delete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <nav class="navbar navbar-expand-md bg-body py-3">
         <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bezier">
                         <path fill-rule="evenodd" d="M0 10.5A1.5 1.5 0 0 1 1.5 9h1A1.5 1.5 0 0 1 4 10.5v1A1.5 1.5 0 0 1 2.5 13h-1A1.5 1.5 0 0 1 0 11.5zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm10.5.5A1.5 1.5 0 0 1 13.5 9h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM6 4.5A1.5 1.5 0 0 1 7.5 3h1A1.5 1.5 0 0 1 10 4.5v1A1.5 1.5 0 0 1 8.5 7h-1A1.5 1.5 0 0 1 6 5.5zM7.5 4a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"></path>
@@ -111,6 +155,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     </nav>
     <div class="d-flex justify-content-center sticky-top bg-white" style="height: 60px;">
         <button type="button" class="btn btn-primary left-50 fs-3"  data-bs-toggle="modal" data-bs-target="#ajouteModal">Add New Ville</button>
+        <button type="button" class="btn btn-primary left-50 fs-3"  data-bs-toggle="modal" data-bs-target='#ModifieModal'>Operations</button>
     </div>
     <div class="container d-flex flex-column align-items-center py-4 py-xl-5">
         <div class="row mb-5">

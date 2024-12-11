@@ -5,6 +5,21 @@ include "../../includes/helpers.php";
 
 $city_ID = $_GET['id'];
 
+ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $action = $_POST['action'];
+    if($action == 'modify') {
+        $newNom =  htmlspecialchars($_POST['nom']);
+        $newDescri = htmlspecialchars($_POST['description']);
+        $newImage = "https://updatedimage.com/updated.png";
+        $newType = "Autre";
+        updateVille($conn, $city_ID , $newNom, $newDescri, $newImage, $newType);
+        header("Refresh:0");
+    } elseif ($action = 'delete') {
+        removeVille($conn, $city_ID );
+        header("Refresh:0");
+    }
+ }
+
 if(isset($city_ID)) {
     $city = getSingleVille($conn, $city_ID);
     $allcities = getAllvilles($conn, $city[0]['Pays_ID']);
@@ -34,6 +49,49 @@ $filteredCities = eliminateCity($city, $allcities);
 </head>
 
 <body>
+    <div class="modal fade" id="ModifieModal" tabindex="-1" aria-labelledby="ModifieModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ajouteModalLabel">Modifie Les Information</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modaSignupl-body px-3">
+                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . '?id=' . $_GET['id']);?>" method="POST">
+                            <div class="mb-3">
+                                <label class="form-label">Nom</label>
+                                <input type="text" name="nom" class="form-control" placeholder="nom..." value="">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" name="description" placeholder="Description..."></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Population</label>
+                                <input type="number" name="population" class="form-control" placeholder="Population...">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Type</label>
+                                <select class="form-control" name="type">
+                                    <option>Select City Type</option>
+                                    <option value="Capital">Capital</option>
+                                    <option value="Autre">Autre</option>
+                                </select>
+                            </div>
+                        <!-- <div class="mb-3">
+                                <label class="form-label">Image</label>
+                                <input type="file" name="langue" name="population" class="form-control" placeholder="image...">
+                            </div> -->
+                            <div class="d-flex  flex-col justify-content-around">
+                                <button type="submit" name='action' value='modify' class="btn btn-primary">Update</button>
+                                <button type="submit" name='action' value='delete' class="btn btn-danger" >Delete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <nav class="navbar navbar-expand-md bg-body py-3">
         <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bezier">
                         <path fill-rule="evenodd" d="M0 10.5A1.5 1.5 0 0 1 1.5 9h1A1.5 1.5 0 0 1 4 10.5v1A1.5 1.5 0 0 1 2.5 13h-1A1.5 1.5 0 0 1 0 11.5zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm10.5.5A1.5 1.5 0 0 1 13.5 9h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM6 4.5A1.5 1.5 0 0 1 7.5 3h1A1.5 1.5 0 0 1 10 4.5v1A1.5 1.5 0 0 1 8.5 7h-1A1.5 1.5 0 0 1 6 5.5zM7.5 4a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"></path>
@@ -49,6 +107,9 @@ $filteredCities = eliminateCity($city, $allcities);
             </div>
         </div>
     </nav>
+    <div class="d-flex justify-content-center sticky-top bg-white" style="height: 60px;">
+        <button type="button" class="btn btn-primary left-50 fs-3"  data-bs-toggle="modal" data-bs-target='#ModifieModal'>Operations</button>
+    </div>
     <div class="container d-flex flex-column align-items-center py-4 py-xl-5">
         <div class="row mb-5">
             <div class="col-md-8 col-xl-6 text-center mx-auto">

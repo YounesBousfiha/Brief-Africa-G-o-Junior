@@ -4,29 +4,6 @@
     include '../../includes/helpers.php';
 
     $data = getAllPays($conn);
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $id = htmlspecialchars($_POST['pays_id']);
-        $action = $_POST['action'];
-
-        if($action == 'delete') {
-            removePay($conn, $id);
-            header("Refresh:0");
-        } elseif ($action == 'modify') {
-            //modifie Function
-        } else {
-            $nom = htmlspecialchars($_POST['nom']);
-            $description = htmlspecialchars($_POST['description']);
-            $population = htmlspecialchars($_POST['population']);
-            $langue = htmlspecialchars($_POST['langue']);
-            $imageURL = "https://fakeimage.com/hello.png";
-    
-            addNewPay($conn, $nom, $description, $population, $langue, $imageURL);
-            header("Refresh:0");
-        }
-    }
-    //formValidation($nom, $description, $population, $langue);
-    //var_dump($_POST);
 ?>
 
 <!DOCTYPE html>
