@@ -13,36 +13,6 @@
         </div>";
     }
 
-    function renderAdminPays($country) {
-        return "
-        <tr>
-            <td>{$country['Nom']}</td>
-            <td>{$country['Description']}</td>
-            <td>Test</td>
-            <td>English</td>
-            <td class='text-center align-middle' style='max-height: 60px;height: 60px;'>
-
-                <a class='btn btnMaterial btn-flat primary semicircle' role='button' href='../pages/country.php?id={$country['ID']}'>
-                    <i class='far fa-eye'></i>
-                </a>
-
-                <form action='#' method='post' style='display: inline;'>
-                    <input type='hidden' name='country_id' value='{$country['ID']}'>
-                    <button type='submit' class='btn btnMaterial btn-flat success semicircle' role='button' data-bs-toggle='modal' data-bs-target='#ModifieModal'>
-                        <i class='fas fa-pen'></i>
-                    </button>
-                </form>
-                <form action='#' method='post' style='display: inline;'>
-                    <input type='hidden' name='country_id' value='{$country['ID']}'>
-                    <button type='submit' class='btn btnMaterial btn-flat accent btnNoBorders checkboxHover' style='margin-left: 5px;' name='action' value='delete'>
-                        <i class='fas fa-trash btnNoBorders' style='color: #DC3545;'></i>
-                    </button>
-                </form>
-
-            </td>
-        </tr>";
-    }
-
     function renderCity($city) {
         return "
         <div class='col order-md-first'>
