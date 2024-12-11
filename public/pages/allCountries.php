@@ -13,7 +13,7 @@
         $population = htmlspecialchars($_POST['population']);
         $created_by = 1; // Rend cette ID dynamique selong le Creator
         $continent_id = 1;
-        $Errors = formValidation($nom, $description, $population, $langue);
+        $Errors = AjoutePaysValidation($nom, $description, $population, $langue);
         if(empty($Errors)) {
             addNewPay($conn, $nom, $description, $population, $langue, $imageURL, $continent_id, $created_by);
             header("Refresh:0");

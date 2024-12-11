@@ -12,8 +12,11 @@ $city_ID = $_GET['id'];
         $newDescri = htmlspecialchars($_POST['description']);
         $newImage = "https://updatedimage.com/updated.png";
         $newType = "Autre";
-        updateVille($conn, $city_ID , $newNom, $newDescri, $newImage, $newType);
-        header("Refresh:0");
+        $Errors = AjouteVilleValidaiton($newNom, $newDescri, $newType);
+        if(empty($Errors)) {
+            updateVille($conn, $city_ID , $newNom, $newDescri, $newImage, $newType);
+            header("Refresh:0");
+        }
     } elseif ($action = 'delete') {
         removeVille($conn, $city_ID );
         header("Refresh:0");
@@ -110,6 +113,13 @@ $filteredCities = eliminateCity($city, $allcities);
     <div class="d-flex justify-content-center sticky-top bg-white" style="height: 60px;">
         <button type="button" class="btn btn-primary left-50 fs-3"  data-bs-toggle="modal" data-bs-target='#ModifieModal'>Operations</button>
     </div>
+    <?php
+    if(!empty($Errors)) {
+            foreach($Errors as $errkey => $errvalue) {
+                echo "<div class='alert alert-warning' role='alert'>Field Err: ${errkey}: ${errvalue}</div>";
+            }
+        }
+    ?>
     <div class="container d-flex flex-column align-items-center py-4 py-xl-5">
         <div class="row mb-5">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
@@ -158,6 +168,14 @@ $filteredCities = eliminateCity($city, $allcities);
     <script src="../assets/js/bs-init.js"></script>
     <script src="../assets/js/Simple-Slider-swiper-bundle.min.js"></script>
     <script src="../assets/js/Simple-Slider.js"></script>
+    <script>
+        setTimeout(function() {
+        var alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+            alert.style.display = 'none';
+        });
+    }, 3000);
+    </script>
 </body>
 
 </html>

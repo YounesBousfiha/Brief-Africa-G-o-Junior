@@ -25,10 +25,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $population = htmlspecialchars($_POST['population']);
         $imageURL = "https://helloimage.com/image.png";
         $langue = "English";
-
-        updatePay($conn, $countryID, $nom, $description, $population, $imageURL, $langue);
-
-        header("Refresh:0");
+        $Errors = AjoutePaysValidation($nom, $description, $population, $langue);
+        if(empty($Errors)) {
+            updatePay($conn, $countryID, $nom, $description, $population, $imageURL, $langue);
+            header("Refresh:0");
+        }
     } else {
         $nom = htmlspecialchars($_POST['nom']);
         $description = htmlspecialchars($_POST['description']);
@@ -36,9 +37,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $type = htmlspecialchars($_POST['type']);
         $pays_id = htmlspecialchars($_GET['id']);
         $created_by = 1; // Rend cette ID dynamique selong le Creator
-        
-        addNewVille($conn, $pays_id, $nom, $description, $imageURL, $type, $created_by);
-        header("Refresh:0");
+        $Errors = AjouteVilleValidaiton($nom, $description, $type);
+        if(empty($Errors)) {
+            addNewVille($conn, $pays_id, $nom, $description, $imageURL, $type, $created_by);
+            header("Refresh:0");
+        }
     }
 }
 ?>
@@ -157,6 +160,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="button" class="btn btn-primary left-50 fs-3"  data-bs-toggle="modal" data-bs-target="#ajouteModal">Add New Ville</button>
         <button type="button" class="btn btn-primary left-50 fs-3"  data-bs-toggle="modal" data-bs-target='#ModifieModal'>Operations</button>
     </div>
+    <?php
+    if(!empty($Errors)) {
+            foreach($Errors as $errkey => $errvalue) {
+                echo "<div class='alert alert-warning' role='alert'>Field Err: ${errkey}: ${errvalue}</div>";
+            }
+        }
+    ?>
     <div class="container d-flex flex-column align-items-center py-4 py-xl-5">
         <div class="row mb-5">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
@@ -205,6 +215,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </footer>
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+    setTimeout(function() {
+        var alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+            alert.style.display = 'none';
+        });
+    }, 3000);
+</script>
 </body>
 
 </html>

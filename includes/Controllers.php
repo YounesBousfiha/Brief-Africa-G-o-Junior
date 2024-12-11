@@ -96,7 +96,7 @@
        return $cities;
     }
 
-    function formValidation($nom, $description, $population, $langue) {
+    function AjoutePaysValidation($nom, $description, $population, $langue) {
         $Erros =[];
         if(empty($nom)) {
             $Erros['nomError'] = "Empty Field Name";
@@ -106,6 +106,20 @@
             $Erros['populError'] = 'empty field Population';
         } elseif(empty($langue)) {
             $Erros['langueError'] = 'empty field langue';
+        }
+
+        return $Erros;
+    }
+
+    function AjouteVilleValidaiton($nom, $description, $type) {
+        $Erros = [];
+
+        if(empty($nom)) {
+            $Erros['nomError'] = "Empty Field Name";
+        } elseif(empty($description)) {
+            $Erros['DescError'] = "empty field Description";
+        } elseif(empty($type)) {
+            $Erros['typeError'] = 'empty field type';
         }
 
         return $Erros;
