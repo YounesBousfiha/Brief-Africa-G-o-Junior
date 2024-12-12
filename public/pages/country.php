@@ -33,13 +33,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $nom = htmlspecialchars($_POST['nom']);
         $description = htmlspecialchars($_POST['description']);
-        $imageURL = "https://fakeimage.com/hello.png";
+        $filename = $_FILES['image']['name'];
+        $tempname = $_FILES['image']['tmp_name'];
+        $imageURL = ImagePath($filename);
         $type = htmlspecialchars($_POST['type']);
         $pays_id = htmlspecialchars($_GET['id']);
         $created_by = 1; // Rend cette ID dynamique selong le Creator
         $Errors = AjouteVilleValidaiton($nom, $description, $type);
+        var_dump($Errors);
         if(empty($Errors)) {
-            addNewVille($conn, $pays_id, $nom, $description, $imageURL, $type, $created_by);
+            addNewVille($conn, $pays_id, $nom, $description, $imageURL, $tempname, $type, $created_by);
             header("Refresh:0");
         }
     }
@@ -66,11 +69,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="ajouteModalLabel">Add new Pays</h5>
+                    <h5 class="modal-title" id="ajouteModalLabel">Add new Ville</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modaSignupl-body px-3">
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . '?id=' . $_GET['id']);?>" method="POST">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . '?id=' . $_GET['id']);?>" method="POST" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label class="form-label">Nom</label>
                             <input type="text" name="nom" class="form-control" placeholder="nom...">
@@ -80,22 +83,21 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <textarea class="form-control" name="description" placeholder="Description..."></textarea>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Population</label>
-                            <input type="number" name="population" class="form-control" placeholder="Population...">
-                        </div>
-                        <div class="mb-3">
                             <label class="form-label">Type</label>
-                            <!--<input type="text" name="langue" name="population" class="form-control" placeholder="langue...">-->
                             <select class="form-control" name="type">
-                                <option>Select City Type</option>
+                                <option>Select Type</option>
                                 <option value="Capital">Capital</option>
                                 <option value="Autre">Autre</option>
                             </select>
                         </div>
-                       <!-- <div class="mb-3">
+                        <!--<div class="mb-3">
+                            <label class="form-label">langue</label>
+                            <input type="text" name="langue" name="population" class="form-control" placeholder="langue...">
+                        </div>-->
+                       <div class="mb-3">
                             <label class="form-label">Image</label>
-                            <input type="file" name="langue" name="population" class="form-control" placeholder="image...">
-                        </div> -->
+                            <input type="file" name="image" class="form-control" placeholder="image...">
+                        </div>
                         <div>
                             <button type="submit" class="btn btn-primary w-100">Add New Vilee</button>
                         </div>
@@ -126,10 +128,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <label class="form-label">Population</label>
                                 <input type="number" name="population" class="form-control" placeholder="Population...">
                             </div>
-                        <!-- <div class="mb-3">
+                            <div class="mb-3">
                                 <label class="form-label">Image</label>
-                                <input type="file" name="langue" name="population" class="form-control" placeholder="image...">
-                            </div> -->
+                                <input type="file" name="image" class="form-control" placeholder="image...">
+                            </div>
                             <div class="d-flex  flex-col justify-content-around">
                                 <button type="submit" name='action' value='modify' class="btn btn-primary">Update</button>
                                 <button type="submit" name='action' value='delete' class="btn btn-danger" >Delete</button>

@@ -5,17 +5,21 @@
 
     $data = getAllPays($conn);
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nom = htmlspecialchars($_POST['nom']);
         $description = htmlspecialchars($_POST['description']);
-        $imageURL = "https://fakeimage.com/hello.png";
         $langue = "Arabic";
         $population = htmlspecialchars($_POST['population']);
-        $created_by = 1; // Rend cette ID dynamique selong le Creator
+        $created_by = 1; // Rend cette ID dynamique selon le Creator
         $continent_id = 1;
+        var_dump($_FILES);
+        $filename = $_FILES['image']['name'];
+        $tempname = $_FILES['image']['tmp_name'];
+        $imageURL = ImagePath($filename);
+        var_dump($filename);
         $Errors = AjoutePaysValidation($nom, $description, $population, $langue);
         if(empty($Errors)) {
-            addNewPay($conn, $nom, $description, $population, $langue, $imageURL, $continent_id, $created_by);
+            addNewPay($conn, $nom, $description, $population, $langue, $imageURL, $tempname, $continent_id, $created_by);
             header("Refresh:0");
         }
     }
@@ -42,7 +46,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modaSignupl-body px-3">
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label class="form-label">Nom</label>
                             <input type="text" name="nom" class="form-control" placeholder="nom...">
@@ -59,10 +63,10 @@
                             <label class="form-label">Langue</label>
                             <input type="text" name="langue" name="population" class="form-control" placeholder="langue...">
                         </div>
-                       <!-- <div class="mb-3">
+                       <div class="mb-3">
                             <label class="form-label">Image</label>
-                            <input type="file" name="langue" name="population" class="form-control" placeholder="image...">
-                        </div> -->
+                            <input type="file" name="image" class="form-control" placeholder="image...">
+                        </div>
                         <div>
                             <button type="submit" class="btn btn-primary w-100">Add New Pay</button>
                         </div>

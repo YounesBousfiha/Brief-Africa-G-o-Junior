@@ -2,11 +2,19 @@
     include "../config/database.php";
 
     // Update cette function later pour uploader les image
-    function addNewPay($conn, $nom, $description, $population, $langue, $imageURL, $Continent_id, $created_by) {
+    function addNewPay($conn, $nom, $description, $population, $langue, $imageURL, $tmp_name, $Continent_id, $created_by) {
+        // BUG:  ImageURL Naming Issue
+        var_dump($imageURL);
         $sql = 'INSERT INTO Pays (Nom, Population, Langue, Description, ImageURL, Continent_ID, Created_BY) Values(?, ?, ?, ?, ?, ?, ?)';
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('sisssii', $nom, $population, $langue, $description, $imageURL, $Continent_id, $created_by);
         $stmt->execute();
+
+        if(move_uploaded_file($tmp_name, $imageURL)) {
+            echo "Uploaded";
+        } else {
+            echo "Failed";
+        }
     }
 
     function updatePay($conn, $pay_id, $newNom, $newDescri, $newPopulation, $newImage, $newlangue) {
@@ -24,11 +32,17 @@
     }
 
     // Update cette function later pour uploader les image
-    function addNewVille($conn, $pays_id, $nom, $description, $imageURL, $type, $created_by) {
+    function addNewVille($conn, $pays_id, $nom, $description, $imageURL, $tmp_name, $type, $created_by) {
         $sql = 'INSERT INTO Villes (Pays_ID, Nom, Description, ImageURL, Type, Created_BY) VALUES (?, ?, ?, ?, ?, ?)';
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('issssi', $pays_id, $nom, $description, $imageURL, $type, $created_by);
         $stmt->execute();
+
+        if(move_uploaded_file($tmp_name, $imageURL)) {
+            echo "Uploaded";
+        } else {
+            echo "failed to Upload";
+        }
     }
 
     function updateVille($conn, $city_id, $newNom, $newDescri, $newImage, $newType) {
@@ -123,5 +137,10 @@
         }
 
         return $Erros;
+    }
+
+    function ImagePath($image_name) {
+        $dir =  "./upload/" . $image_name;
+        return $dir;
     }
 ?>

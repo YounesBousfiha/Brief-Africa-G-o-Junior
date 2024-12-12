@@ -3,7 +3,7 @@
     function renderPays($data) {
         return "
         <div class='col order-md-first'>
-            <div class='card'><img class='card-img w-100 d-block' src='https://cdn.bootstrapstudio.io/placeholders/1400x800.png'>
+            <div class='card'><img class='card-img w-100 d-block' src='{$data['ImageURL']}'>
                  <div class='card-img-overlay text-center d-flex flex-column justify-content-center align-items-center p-4'>
                     <h4>{$data['Nom']}</h4>
                     <p>{$data['Description']}</p>
@@ -16,7 +16,7 @@
     function renderCity($city) {
         return "
         <div class='col order-md-first'>
-        <div class='card'><img class='card-img w-100 d-block' src='https://cdn.bootstrapstudio.io/placeholders/1400x800.png'>
+        <div class='card'><img class='card-img w-100 d-block' src='{$city['ImageURL']}'>
             <div class='card-img-overlay text-center d-flex flex-column justify-content-center align-items-center p-4'>
                 <h4>{$city['Nom']}</h4>
                 <p>{$city['Description']}</p>
@@ -30,7 +30,7 @@
     function renderFiltredCity($city) {
         return "
         <div class='col-md-4'>
-        <div class='card'><img class='card-img w-100 d-block' src='https://cdn.bootstrapstudio.io/placeholders/1400x800.png'>
+        <div class='card'><img class='card-img w-100 d-block' src='{$city['ImageURL']}'>
             <div class='card-img-overlay text-center d-flex flex-column justify-content-center align-items-center p-4'>
                 <h4>{$city['Nom']}</h4>
                 <p>{$city['Description']}</p>
