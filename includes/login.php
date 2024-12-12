@@ -10,8 +10,8 @@
 
         if($userData) {
             session_start();
-            setcookie("type", $userData['ID']);
-            header("Location: ../public/pages/allCountries.php");
+            setcookie("type", $userData['ID'], time() + 3600, "/");
+            //header("Location: ../public/pages/allCountries.php");
         } else {
             echo "Failed!";
         }

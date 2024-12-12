@@ -38,9 +38,8 @@ function Login($conn, $email, $password) {
 }
 
 function Logout() {
-    var_dump($_COOKIE);
     session_unset();
     session_destroy();
-    setcookie("type", "");
+    setcookie("type", "", time() - 3600, "/");
 }
 ?>
