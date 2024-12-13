@@ -3,8 +3,6 @@
 
     // Update cette function later pour uploader les image
     function addNewPay($conn, $nom, $description, $population, $langue, $imageURL, $tmp_name, $Continent_id, $created_by) {
-        // BUG:  ImageURL Naming Issue
-        var_dump($imageURL);
         $sql = 'INSERT INTO Pays (Nom, Population, Langue, Description, ImageURL, Continent_ID, Created_BY) Values(?, ?, ?, ?, ?, ?, ?)';
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('sisssii', $nom, $population, $langue, $description, $imageURL, $Continent_id, $created_by);
@@ -17,11 +15,17 @@
         }
     }
 
-    function updatePay($conn, $pay_id, $newNom, $newDescri, $newPopulation, $newImage, $newlangue) {
+    function updatePay($conn, $pay_id, $newNom, $newDescri, $newPopulation, $newImage, $tmp_name, $newlangue) {
         $sql = 'UPDATE Pays SET Nom = ?, Description = ?, Population = ?, ImageUrl = ?, Langue = ? WHERE ID = ?';
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('ssissi', $newNom, $newDescri, $newPopulation, $newImage, $newlangue, $pay_id);
         $stmt->execute();
+
+        if(move_uploaded_file($tmp_name, $newImage)) {
+            echo "Uploaded";
+        } else {
+            echo "Failed";
+        }
     } 
 
     function removePay($conn, $pays_id) {
@@ -110,7 +114,10 @@
        return $cities;
     }
 
-    function AjoutePaysValidation($nom, $description, $population, $langue) {
+    function AjoutePaysValidation($nom, $description, $population, $langue, $imageUrl) {
+        $allowType = ['png', 'jpg'];
+        $fileType = strtolower(pathinfo($imageUrl, PATHINFO_EXTENSION));
+        var_dump($fileType);
         $Erros =[];
         if(empty($nom)) {
             $Erros['nomError'] = "Empty Field Name";
@@ -120,6 +127,8 @@
             $Erros['populError'] = 'empty field Population';
         } elseif(empty($langue)) {
             $Erros['langueError'] = 'empty field langue';
+        } elseif(empty($imageURL) && !in_array($fileType, $allowType) ) {
+            $Erros['ImageError'] = 'empty field Image or Wrong Image Extension';
         }
 
         return $Erros;

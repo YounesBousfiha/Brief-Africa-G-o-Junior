@@ -22,17 +22,20 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nom = htmlspecialchars($_POST['nom']);
         $description = htmlspecialchars($_POST['description']);
         $population = htmlspecialchars($_POST['population']);
-        $imageURL = "https://helloimage.com/image.png";
-        $langue = "English";
-        $Errors = AjoutePaysValidation($nom, $description, $population, $langue);
+        $filename = $_FILES['image']['name'];
+        $tempname = $_FILES['image']['tmp_name'];
+        $imageURL = ImagePath($filename);
+        $langue = htmlspecialchars($_POST['langue']);
+        $Errors = AjoutePaysValidation($nom, $description, $population, $langue, $imageURL);
         if(empty($Errors)) {
-            updatePay($conn, $countryID, $nom, $description, $population, $imageURL, $langue);
+            updatePay($conn, $countryID, $nom, $description, $population, $imageURL, $tempname, $langue);
             header("Refresh:0");
         }
     } elseif($action == 'logout') {
         Logout();
     }
      else {
+        $user = ValidateUser($conn);
         $nom = htmlspecialchars($_POST['nom']);
         $description = htmlspecialchars($_POST['description']);
         $filename = $_FILES['image']['name'];
@@ -40,8 +43,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imageURL = ImagePath($filename);
         $type = htmlspecialchars($_POST['type']);
         $pays_id = htmlspecialchars($_GET['id']);
-        $created_by = 1; // Rend cette ID dynamique selong le Creator
-        $Errors = AjouteVilleValidaiton($nom, $description, $type);
+        $created_by = $user['ID'];
+        $Errors = AjouteVilleValidaiton($nom, $description, $type, $imageURL);
         if(empty($Errors)) {
             addNewVille($conn, $pays_id, $nom, $description, $imageURL, $tempname, $type, $created_by);
             header("Refresh:0");
@@ -91,10 +94,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <option value="Autre">Autre</option>
                             </select>
                         </div>
-                        <!--<div class="mb-3">
-                            <label class="form-label">langue</label>
-                            <input type="text" name="langue" name="population" class="form-control" placeholder="langue...">
-                        </div>-->
                        <div class="mb-3">
                             <label class="form-label">Image</label>
                             <input type="file" name="image" class="form-control" placeholder="image...">
@@ -116,7 +115,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modaSignupl-body px-3">
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . '?id=' . $_GET['id']);?>" method="POST">
+                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . '?id=' . $_GET['id']);?>" method="POST" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label class="form-label">Nom</label>
                                 <input type="text" name="nom" class="form-control" placeholder="nom..." value="">
@@ -132,6 +131,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="mb-3">
                                 <label class="form-label">Image</label>
                                 <input type="file" name="image" class="form-control" placeholder="image...">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Langue</label>
+                                <input type="text" name="langue" class="form-control" placeholder="langue...">
                             </div>
                             <div class="d-flex  flex-col justify-content-around">
                                 <button type="submit" name='action' value='modify' class="btn btn-primary">Update</button>
@@ -206,7 +209,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
     <nav class="navbar navbar-expand-md bg-body py-3">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bezier">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="../index.php"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bezier">
                         <path fill-rule="evenodd" d="M0 10.5A1.5 1.5 0 0 1 1.5 9h1A1.5 1.5 0 0 1 4 10.5v1A1.5 1.5 0 0 1 2.5 13h-1A1.5 1.5 0 0 1 0 11.5zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm10.5.5A1.5 1.5 0 0 1 13.5 9h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM6 4.5A1.5 1.5 0 0 1 7.5 3h1A1.5 1.5 0 0 1 10 4.5v1A1.5 1.5 0 0 1 8.5 7h-1A1.5 1.5 0 0 1 6 5.5zM7.5 4a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"></path>
                         <path d="M6 4.5H1.866a1 1 0 1 0 0 1h2.668A6.517 6.517 0 0 0 1.814 9H2.5c.123 0 .244.015.358.043a5.517 5.517 0 0 1 3.185-3.185A1.503 1.503 0 0 1 6 5.5zm3.957 1.358A1.5 1.5 0 0 0 10 5.5v-1h4.134a1 1 0 1 1 0 1h-2.668a6.517 6.517 0 0 1 2.72 3.5H13.5c-.123 0-.243.015-.358.043a5.517 5.517 0 0 0-3.185-3.185z"></path>
                     </svg></span><span>Afri-GeoJunior</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
@@ -262,7 +265,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p class="w-lg-50"><?php echo $country[0]['Description'] ?></p>
             </div>
         </div>
-        <div class="row gy-4 row-cols-1 row-cols-md-2 w-100" style="max-width: 800px;">
+        <div class="row gy-4 justify-content-center row-cols-1 row-cols-md-2 w-100" style="max-width: 800px;">
             <?php
                 foreach($cities as $city) {
                     echo renderCity($city);

@@ -16,11 +16,14 @@ $city_ID = $_GET['id'];
     if($action == 'modify') {
         $newNom =  htmlspecialchars($_POST['nom']);
         $newDescri = htmlspecialchars($_POST['description']);
-        $newImage = "https://updatedimage.com/updated.png";
-        $newType = "Autre";
-        $Errors = AjouteVilleValidaiton($newNom, $newDescri, $newType);
+        $newType = htmlspecialchars($_POST['type']);
+        $filename = $_FILES['image']['name'];
+        $tempname = $_FILES['image']['tmp_name'];
+        $imageURL = ImagePath($filename);
+
+        $Errors = AjouteVilleValidaiton($newNom, $newDescri, $newType, $imageURL);
         if(empty($Errors)) {
-            updateVille($conn, $city_ID , $newNom, $newDescri, $newImage, $newType);
+            updateVille($conn, $city_ID , $newNom, $newDescri, $imageURL, $newType);
             header("Refresh:0");
         }
     } elseif ($action = 'delete') {
@@ -161,7 +164,7 @@ $filteredCities = eliminateCity($city, $allcities);
         </div>
     </div>
     <nav class="navbar navbar-expand-md bg-body py-3">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bezier">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="../index.php"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bezier">
                         <path fill-rule="evenodd" d="M0 10.5A1.5 1.5 0 0 1 1.5 9h1A1.5 1.5 0 0 1 4 10.5v1A1.5 1.5 0 0 1 2.5 13h-1A1.5 1.5 0 0 1 0 11.5zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm10.5.5A1.5 1.5 0 0 1 13.5 9h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM6 4.5A1.5 1.5 0 0 1 7.5 3h1A1.5 1.5 0 0 1 10 4.5v1A1.5 1.5 0 0 1 8.5 7h-1A1.5 1.5 0 0 1 6 5.5zM7.5 4a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"></path>
                         <path d="M6 4.5H1.866a1 1 0 1 0 0 1h2.668A6.517 6.517 0 0 0 1.814 9H2.5c.123 0 .244.015.358.043a5.517 5.517 0 0 1 3.185-3.185A1.503 1.503 0 0 1 6 5.5zm3.957 1.358A1.5 1.5 0 0 0 10 5.5v-1h4.134a1 1 0 1 1 0 1h-2.668a6.517 6.517 0 0 1 2.72 3.5H13.5c-.123 0-.243.015-.358.043a5.517 5.517 0 0 0-3.185-3.185z"></path>
                     </svg></span><span>Afri-GeoJunior</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
@@ -218,7 +221,7 @@ $filteredCities = eliminateCity($city, $allcities);
             </div>
         </div>
     </div>
-    <div data-bss-parallax-bg="true" style="height: 500px;background-image: url(https://cdn.bootstrapstudio.io/placeholders/1400x800.png);background-position: center;background-size: cover;;"></div>
+    <div data-bss-parallax-bg="true" style="height: 500px;background-image: url(<?php echo $city[0]['ImageURL'] ?>);background-position: center;background-size: cover;"></div>
     <div class="container">
         <h1 class="text-center" style="margin-top: 24px;margin-bottom: 24px;">See Other Cities</h1>
         <div class="row">
