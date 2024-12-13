@@ -16,7 +16,7 @@
                         <p>{$data['Langue']}<p>
                     </div>
                 </div>
-                <a href='./country.php?id={$data['ID']}' class='btn btn-primary'>Go somewhere</a>
+                <a href='./country.php?id={$data['ID']}' class='btn btn-primary'>See the Country</a>
             </div>
         </div>
         ";
@@ -31,7 +31,7 @@
                 <p class='card-text'>{$city['Description']}</p>
                 <div class='d-flex justify-content-around'>
                 </div>
-                <a href='./city.php?id={$city['ID']}' class='btn btn-primary'>Go somewhere</a>
+                <a href='./city.php?id={$city['ID']}' class='btn btn-primary'>See the City</a>
             </div>
         </div>
         ";
@@ -45,7 +45,7 @@
             <div class='card-img-overlay text-center d-flex flex-column justify-content-center align-items-center p-4'>
                 <h4>{$city['Nom']}</h4>
                 <p>{$city['Description']}</p>
-                <span><a href='./city.php?id={$city['ID']}'>See More</a></span>
+                <span><a href='./city.php?id={$city['ID']}'>See the City</a></span>
             </div>
         </div>
     </div>";

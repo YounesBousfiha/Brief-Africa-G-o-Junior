@@ -136,7 +136,7 @@
         </div>
     </nav>
 
-    <form class="d-flex justify-content-center mt-3" action="./pages/search.php" method="POST">
+    <form class="d-flex justify-content-center mt-3" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
         <div>
             <input type="text" name="search" class="form-control" placeholder="Search...">
         </div>

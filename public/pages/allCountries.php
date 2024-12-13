@@ -169,7 +169,7 @@
                     echo '
                         <span class="fw-bold me-3">Welcome, <span class="user-name">' . $user['Nom'] . '</span></span>
                         <form method="POST">
-                    <button type="submit" name="logout"  class="btn btn-primary me-2">
+                    <button type="submit" name="action" value="logout"  class="btn btn-primary me-2">
                         Logout
                     </button>
                 </form>';
@@ -191,6 +191,17 @@
             }
         }
     ?>
+    <form class="d-flex justify-content-center mt-3" action="../pages/search.php" method="POST">
+        <div>
+            <input type="text" name="search" class="form-control" placeholder="Search...">
+        </div>
+        <div>
+            <select class="form-control" name="searchtype">
+                <option value="langue">By Langue</option>
+                <option value="population">By Population</option>
+            </select>
+        </div>
+    </form>
     <div class="container d-flex flex-column align-items-center py-4 py-xl-5">
         <div class="row gy-4 justify-content-center  gap-5 row-cols-1 row-cols-md-2 w-100" style="max-width: 800px;">
             <?php

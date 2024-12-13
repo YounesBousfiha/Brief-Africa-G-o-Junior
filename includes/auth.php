@@ -70,6 +70,6 @@ function Logout() {
     session_unset();
     session_destroy();
     setcookie("auth_token", "", time() - 3600, "/");
-    header("Location: ../public/index.php");
+    header("Location: http://localhost:3000/public/index.php");
 }
 ?>

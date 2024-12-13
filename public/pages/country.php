@@ -259,6 +259,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     ?>
+    <form class="d-flex justify-content-center mt-3" action="../pages/search.php" method="POST">
+        <div>
+            <input type="text" name="search" class="form-control" placeholder="Search...">
+        </div>
+        <div>
+            <select class="form-control" name="searchtype">
+                <option value="langue">By Langue</option>
+                <option value="population">By Population</option>
+            </select>
+        </div>
+    </form>
     <div class="container d-flex flex-column align-items-center py-4 py-xl-5">
         <div class="row mb-5">
             <div class="col-md-8 col-xl-6 text-center mx-auto">

@@ -8,9 +8,10 @@ $city_ID = $_GET['id'];
 
  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $action = $_POST['action'];
-    
+    var_dump($action);
     if($action == 'logout') {
         Logout();
+        echo "Hello";
     }
 
     if($action == 'modify') {
@@ -24,11 +25,11 @@ $city_ID = $_GET['id'];
         $Errors = AjouteVilleValidaiton($newNom, $newDescri, $newType, $imageURL);
         if(empty($Errors)) {
             updateVille($conn, $city_ID , $newNom, $newDescri, $imageURL, $newType);
-            header("Refresh:0");
+            //header("Refresh:0");
         }
     } elseif ($action = 'delete') {
         removeVille($conn, $city_ID );
-        header("Refresh:0");
+        //header("Refresh:0");
     }
  }
 
@@ -192,7 +193,7 @@ $filteredCities = eliminateCity($city, $allcities);
                     echo '
                         <span class="fw-bold me-3">Welcome, <span class="user-name">' . $user['Nom'] . '</span></span>
                         <form method="POST">
-                    <button type="submit" name="logout"  class="btn btn-primary me-2">
+                    <button type="submit" name="action" value="logout"  class="btn btn-primary me-2">
                         Logout
                     </button>
                 </form>';
@@ -214,6 +215,17 @@ $filteredCities = eliminateCity($city, $allcities);
             }
         }
     ?>
+    <form class="d-flex justify-content-center mt-3" action="../pages/search.php" method="POST">
+        <div>
+            <input type="text" name="search" class="form-control" placeholder="Search...">
+        </div>
+        <div>
+            <select class="form-control" name="searchtype">
+                <option value="langue">By Langue</option>
+                <option value="population">By Population</option>
+            </select>
+        </div>
+    </form>
     <div class="container d-flex flex-column align-items-center py-4 py-xl-5">
         <div class="row mb-5">
             <div class="col-md-8 col-xl-6 text-center mx-auto">

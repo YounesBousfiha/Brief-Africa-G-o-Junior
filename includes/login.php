@@ -9,9 +9,9 @@
         $userData = Login($conn, $email, $password);
 
         if($userData) {
-            header("Location: ../public/index.php");
+            header("Location: http://localhost:3000/public/index.php");
         } else {
-            header("Location: ../public/index.php");
+            header("Location: http://localhost:3000/public/index.php");
         }
     }
 ?>
