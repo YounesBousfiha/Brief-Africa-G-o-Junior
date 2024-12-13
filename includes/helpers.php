@@ -1,6 +1,7 @@
 <?php
 
     function renderPays($data) {
+        var_dump($data);
         return "
         <div class='col order-md-first'>
             <div class='card'><img class='card-img w-100 d-block' src='{$data['ImageURL']}'>

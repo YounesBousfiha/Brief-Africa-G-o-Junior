@@ -143,4 +143,23 @@
         $dir =  "./upload/" . $image_name;
         return $dir;
     }
+
+    function searchBylangue($conn, $langue) {
+        $sql = 'SELECT * FROM Pays WHERE Langue = ?';
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('s', $langue);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $data = $res->fetch_assoc();
+        return $data;
+    }
+    function searchByPopulation($conn, $population) {
+        $sql = 'SELECT * FROM Pays WHERE Population > ?';
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $population);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $data = $res->fetch_assoc();
+        return $data;
+    }
 ?>
