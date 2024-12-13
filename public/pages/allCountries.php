@@ -10,11 +10,12 @@
         if ($action == 'logout') {
             Logout();
         } else {
+            $user = ValidateUser($conn);
             $nom = htmlspecialchars($_POST['nom']);
             $description = htmlspecialchars($_POST['description']);
             $langue = htmlspecialchars($_POST['langue']);
             $population = htmlspecialchars($_POST['population']);
-            $created_by = 1; // Rend cette ID dynamique selon le Creator
+            $created_by = $user['ID'];
             $continent_id = 1;
             $filename = $_FILES['image']['name'];
             $tempname = $_FILES['image']['tmp_name'];
