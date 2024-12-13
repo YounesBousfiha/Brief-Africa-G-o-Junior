@@ -63,4 +63,25 @@
     </div>
         ';
     }
+
+    function newrenders($entrie) {
+        return "
+        <div class='card' style='width: 18rem;'>
+            <img class='card-img-top' src='{$entrie['ImageURL']}' alt='Card image cap'>
+            <div class='card-body'>
+                <h5 class='card-title'>{$entrie['Nom']}</h5>
+                <p class='card-text'>{$entrie['Description']}</p>
+                <div class='d-flex justify-content-around'>
+                    <div>
+                        <span>{$entrie['Population']}<span>
+                    </div>
+                    <div>
+                        <p>{$entrie['Langue']}<p>
+                    </div>
+                </div>
+                <a href='./country.php?id={$entrie['ID']}' class='btn btn-primary'>Go somewhere</a>
+            </div>
+        </div>
+        ";
+    }
 ?>

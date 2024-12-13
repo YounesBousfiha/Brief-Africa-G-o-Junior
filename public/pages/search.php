@@ -21,7 +21,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width,pages/search.php initial-scale=1.0, shrink-to-fit=no">
     <title>index</title>
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/Navbar-With-Button-icons.css">
@@ -147,13 +147,14 @@
         </div>
     </form>
     <div class="container d-flex flex-column align-items-center py-4 py-xl-5">
-        <div class="row gy-4 row-cols-1 row-cols-md-2 w-100" style="max-width: 800px;">
+        <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-lg-3 w-100 text-center"> 
             <?php
                 foreach($data as $entrie) {
-                    echo renderPays($entrie);
+                    echo newrenders($entrie);
                 }
             ?>
-
+        </div>
+    </div>
     <footer class="text-center">
         <div class="container text-muted py-4 py-lg-5">
             <ul class="list-inline">
