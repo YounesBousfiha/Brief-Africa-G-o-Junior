@@ -141,9 +141,9 @@ if (isset($_POST['logout'])) {
     </form>
     <section class="text-white py-4 py-xl-5">
         <div class="container">
-            <div class="border rounded border-0 d-flex flex-column justify-content-center align-items-center p-4 py-5" style="background: linear-gradient(rgba(0,123,255,0.2), rgba(0,123,255,0.2)), url(&quot;https://cdn.bootstrapstudio.io/placeholders/1400x800.png&quot;) center / cover;height: 500px;">
+            <div class="border rounded border-0 d-flex flex-column justify-content-center align-items-center p-4 py-5" style="background: linear-gradient(rgba(0,123,255,0.2), rgba(0,123,255,0.2)), url(&quot;./images/cover.jpg&quot;) center / cover;height: 500px;">
                 <div class="row">
-                    <div class="col-md-10 col-xl-8 text-center d-flex d-sm-flex d-md-flex justify-content-center align-items-center mx-auto justify-content-md-start align-items-md-center justify-content-xl-center">
+                    <div class="col-md-10 col-xl-8 text-center d-flex d-sm-flex d-md-flex justify-content-center mx-auto justify-content-md-start align-items-md-center justify-content-xl-center">
                         <div>
                             <h1 class="text-uppercase fw-bold mb-3">Discover the beauty, diversity, and culture of African countries.</h1>
                             <p class="mb-4">Afri-GeoJunior is an interactive platform designed to help students learn about African countries, their capitals, and major cities. Challenge yourself with quizzes and see how much you really know!"</p>
@@ -163,8 +163,8 @@ if (isset($_POST['logout'])) {
         <div class="row gy-4 row-cols-2 row-cols-md-4">
             <div class="col">
                 <div class="card border-0 shadow-none">
-                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover" width="130" height="130" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png">
-                        <h5 class="fw-bold text-primary card-title mb-0">Hassan Ezzarhouni</h5>
+                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover" width="130" height="130" src="./images/yasser.jpeg">
+                        <h5 class="fw-bold text-primary card-title mb-0">Yasser AbouFaris</h5>
                         <p class="text-muted card-text mb-2">Directeur</p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
@@ -188,8 +188,8 @@ if (isset($_POST['logout'])) {
             </div>
             <div class="col">
                 <div class="card border-0 shadow-none">
-                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover" width="130" height="130" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png">
-                        <h5 class="fw-bold text-primary card-title mb-0"><strong>John Smith</strong></h5>
+                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover" width="130" height="130" src="./images/achraf.jpeg">
+                        <h5 class="fw-bold text-primary card-title mb-0"><strong>Achref Boujahd</strong></h5>
                         <p class="text-muted card-text mb-2">Project Lead</p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
@@ -213,8 +213,8 @@ if (isset($_POST['logout'])) {
             </div>
             <div class="col">
                 <div class="card border-0 shadow-none">
-                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover" width="130" height="130" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png">
-                        <h5 class="fw-bold text-primary card-title mb-0"><strong>John Smith</strong></h5>
+                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover" width="130" height="130" src="./images/younes.jpeg">
+                        <h5 class="fw-bold text-primary card-title mb-0"><strong>Younes Bousfiha</strong></h5>
                         <p class="text-muted card-text mb-2">Administrator</p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
@@ -238,8 +238,8 @@ if (isset($_POST['logout'])) {
             </div>
             <div class="col">
                 <div class="card border-0 shadow-none">
-                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover" width="130" height="130" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png">
-                        <h5 class="fw-bold text-primary card-title mb-0"><strong>John Smith</strong></h5>
+                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover" width="130" height="130" src="./images/hamza.jpeg">
+                        <h5 class="fw-bold text-primary card-title mb-0"><strong>Hamza el hadouchi</strong></h5>
                         <p class="text-muted card-text mb-2">Teacher</p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
@@ -273,7 +273,7 @@ if (isset($_POST['logout'])) {
             <div class="col">
                 <div>
                     <p class="bg-body-tertiary border rounded border-0 p-4">Nisi sit justo faucibus nec ornare amet, tortor torquent. Blandit class dapibus, aliquet morbi.</p>
-                    <div class="d-flex"><img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png">
+                    <div class="d-flex"><img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50" src="./images/younes.jpeg">
                         <div>
                             <p class="fw-bold text-primary mb-0">Younes Bousfiha</p>
                             <p class="text-muted mb-0">Teacher</p>
@@ -284,7 +284,7 @@ if (isset($_POST['logout'])) {
             <div class="col">
                 <div>
                     <p class="bg-body-tertiary border rounded border-0 p-4">Nisi sit justo faucibus nec ornare amet, tortor torquent. Blandit class dapibus, aliquet morbi.</p>
-                    <div class="d-flex"><img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png">
+                    <div class="d-flex"><img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50" src="./images/imrane.jpg">
                         <div>
                             <p class="fw-bold text-primary mb-0">Imrane Ait Dahmane</p>
                             <p class="text-muted mb-0">Teacher</p>
@@ -295,9 +295,9 @@ if (isset($_POST['logout'])) {
             <div class="col">
                 <div>
                     <p class="bg-body-tertiary border rounded border-0 p-4">Nisi sit justo faucibus nec ornare amet, tortor torquent. Blandit class dapibus, aliquet morbi.</p>
-                    <div class="d-flex"><img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png">
+                    <div class="d-flex"><img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50" src="./images/hamza.jpeg">
                         <div>
-                            <p class="fw-bold text-primary mb-0">Mohamed hanafi Alaoui</p>
+                            <p class="fw-bold text-primary mb-0">Hamza el hadouchi</p>
                             <p class="text-muted mb-0">Teacher</p>
                         </div>
                     </div>
@@ -343,10 +343,10 @@ if (isset($_POST['logout'])) {
                         <div class="text-white p-4 p-md-5">
                             <h2 class="fw-bold text-white mb-3">Ready to Test Your Knowledge of Africa?"</h2>
                             <p class="mb-4">Join Afri-GeoJunior and explore African countries, their capitals, and cities like never before!</p>
-                            <div class="my-3"><a class="btn btn-primary btn-lg me-2" role="button" href="#">Start Now !</a><a class="btn btn-primary btn-lg me-2" role="button" href="#" style="background: rgb(255,255,255);color: rgb(0,0,0);">Learn More</a></div>
+                            <div class="my-3"><a class="btn btn-primary btn-lg me-2" role="button" href="./pages/allCountries.php">Start Now !</a><a class="btn btn-primary btn-lg me-2" role="button" href="#" style="background: rgb(255,255,255);color: rgb(0,0,0);">Learn More</a></div>
                         </div>
                     </div>
-                    <div class="col-md-6 order-first order-md-last" style="min-height: 250px;"><img class="w-100 h-100 fit-cover" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"></div>
+                    <div class="col-md-6 order-first order-md-last" style="min-height: 250px;"><img class="w-100 h-100 fit-cover" src="./images/lion.jpg"></div>
                 </div>
             </div>
         </div>
