@@ -38,4 +38,28 @@
         </div>
     </div>";
     }
+
+    function renderAdminBtnCountry() {
+        return '
+        <div class="d-flex justify-content-center sticky-top bg-white" style="height: 60px;">
+            <button type="button" class="btn btn-primary left-50 fs-3"  data-bs-toggle="modal" data-bs-target="#ajouteModal">Add New Ville</button>
+            <button type="button" class="btn btn-primary left-50 fs-3"  data-bs-toggle="modal" data-bs-target="#ModifieModal">Operations</button>
+        </div>';
+    }
+
+    function renderAdminBtnCity() {
+        return '
+        <div class="d-flex justify-content-center sticky-top bg-white" style="height: 60px;">
+            <button type="button" class="btn btn-primary left-50 fs-3"  data-bs-toggle="modal" data-bs-target="#ModifieModal">Operations</button>
+        </div>
+        ';  
+    }
+
+    function renderAdminBtnall() {
+        return '
+    <div class="d-flex justify-content-center sticky-top bg-white" style="height: 60px;">
+        <button type="button" class="btn btn-primary left-50 fs-3"  data-bs-toggle="modal" data-bs-target="#ajouteModal">Add New Pay</button>
+    </div>
+        ';
+    }
 ?>

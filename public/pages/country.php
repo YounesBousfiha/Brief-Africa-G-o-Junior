@@ -3,14 +3,13 @@
 include "../../config/database.php";
 include "../../includes/Controllers.php";
 include "../../includes/helpers.php";
+include "../../includes/auth.php";
 
 $countryID = $_GET['id'];
 
 if (isset($countryID)) {
     $cities =  getAllvilles($conn, $countryID);
     $country = getSinglePay($conn, $countryID);
-} else {
-    echo "no value";
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -30,7 +29,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             updatePay($conn, $countryID, $nom, $description, $population, $imageURL, $langue);
             header("Refresh:0");
         }
-    } else {
+    } elseif($action == 'logout') {
+        Logout();
+    }
+     else {
         $nom = htmlspecialchars($_POST['nom']);
         $description = htmlspecialchars($_POST['description']);
         $filename = $_FILES['image']['name'];
@@ -40,7 +42,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pays_id = htmlspecialchars($_GET['id']);
         $created_by = 1; // Rend cette ID dynamique selong le Creator
         $Errors = AjouteVilleValidaiton($nom, $description, $type);
-        var_dump($Errors);
         if(empty($Errors)) {
             addNewVille($conn, $pays_id, $nom, $description, $imageURL, $tempname, $type, $created_by);
             header("Refresh:0");
@@ -143,6 +144,67 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </div>
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="../../includes/login.php" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Email...">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Password...">
+                        </div>
+                        <div>
+                            <button type="submit" name="action" value="login" class="btn btn-primary w-100">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signupModalLabel">Signup</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action = "../../includes/register.php" method="POST">
+                    <div class="mb-3">
+                            <label class="form-label">Nom</label>
+                            <input type="text" name="nom" class="form-control" placeholder="Nom...">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Email...">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Password...">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password Confirmation</label>
+                            <input type="password" name="confirmation" class="form-control" placeholder="Password...">
+                        </div>
+                        <div>
+                            <button type="submit" name="action" value="singup" class="btn btn-primary w-100">Signup</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <nav class="navbar navbar-expand-md bg-body py-3">
         <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bezier">
                         <path fill-rule="evenodd" d="M0 10.5A1.5 1.5 0 0 1 1.5 9h1A1.5 1.5 0 0 1 4 10.5v1A1.5 1.5 0 0 1 2.5 13h-1A1.5 1.5 0 0 1 0 11.5zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm10.5.5A1.5 1.5 0 0 1 13.5 9h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM6 4.5A1.5 1.5 0 0 1 7.5 3h1A1.5 1.5 0 0 1 10 4.5v1A1.5 1.5 0 0 1 8.5 7h-1A1.5 1.5 0 0 1 6 5.5zM7.5 4a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"></path>
@@ -154,14 +216,38 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <li class="nav-item"><a class="nav-link active" href="#" style="color: rgb(0,0,0);">Our Method</a></li>
                     <li class="nav-item"><a class="nav-link" href="#" style="color: rgb(0,0,0);">About US</a></li>
                     <li class="nav-item"><a class="nav-link" href="#" style="color: rgb(0,0,0);">Contact</a></li>
-                </ul><button class="btn btn-primary" type="button" style="color: var(--bs-light);background: var(--bs-primary);">Login/Signup</button>
+                </ul>
+                <?php 
+                    if(!$_COOKIE['auth_token']) {
+                        echo '
+                        <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        Login
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#signupModal">
+                        Signup
+                    </button>
+                </div>';
+                    } else {
+                        $user = ValidateUser($conn);
+                        echo '
+                        <span class="fw-bold me-3">Welcome, <span class="user-name">'. $user['Nom'] .'</span></span>
+                        <form method="POST">
+                    <button type="submit" name="action" value="logout"  class="btn btn-primary me-2">
+                        Logout
+                    </button>
+                </form>';
+                    }
+                ?>
             </div>
         </div>
     </nav>
-    <div class="d-flex justify-content-center sticky-top bg-white" style="height: 60px;">
-        <button type="button" class="btn btn-primary left-50 fs-3"  data-bs-toggle="modal" data-bs-target="#ajouteModal">Add New Ville</button>
-        <button type="button" class="btn btn-primary left-50 fs-3"  data-bs-toggle="modal" data-bs-target='#ModifieModal'>Operations</button>
-    </div>
+    <?php 
+    $user = ValidateUser($conn);
+    if($user['Role'] == 'Admin') {
+        echo renderAdminBtnCountry();
+    }
+    ?>
     <?php
     if(!empty($Errors)) {
             foreach($Errors as $errkey => $errvalue) {

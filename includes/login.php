@@ -9,11 +9,9 @@
         $userData = Login($conn, $email, $password);
 
         if($userData) {
-            session_start();
-            setcookie("type", $userData['ID'], time() + 3600, "/");
-            //header("Location: ../public/pages/allCountries.php");
+            header("Location: ../public/index.php");
         } else {
-            echo "Failed!";
+            header("Location: ../public/index.php");
         }
     }
 ?>

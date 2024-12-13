@@ -7,10 +7,11 @@
         $email = htmlspecialchars($_POST['email']);
         $password = htmlspecialchars($_POST['password']);
         $passwordConfirm = htmlspecialchars($_POST['confirmation']);
+        $role = htmlspecialchars($_POST['role']);
 
         $status = emailEnumeration($conn, $email);
         if(!$status && $password === $passwordConfirm) {
-            SignUp($conn, $Nom, $email, $password); 
+            SignUp($conn, $Nom, $email, $password, $role); 
         } else {
             echo "Failed";
         }
