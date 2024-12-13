@@ -118,19 +118,19 @@
                     <form action = "../../includes/register.php" method="POST">
                     <div class="mb-3">
                             <label class="form-label">Nom</label>
-                            <input type="text" name="nom" class="form-control" placeholder="Nom...">
+                            <input type="text" name="nom" class="form-control" placeholder="Nom..." required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="Email...">
+                            <input type="email" name="email" class="form-control" placeholder="Email..." required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input type="password" name="password" class="form-control" placeholder="Password...">
+                            <input type="password" name="password" class="form-control" placeholder="Password..." required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Password Confirmation</label>
-                            <input type="password" name="confirmation" class="form-control" placeholder="Password...">
+                            <input type="password" name="confirmation" class="form-control" placeholder="Password..." required>
                         </div>
                         <div>
                             <button type="submit" name="action" value="singup" class="btn btn-primary w-100">Signup</button>
@@ -193,7 +193,7 @@
     ?>
     <form class="d-flex justify-content-center mt-3" action="../pages/search.php" method="POST">
         <div>
-            <input type="text" name="search" class="form-control" placeholder="Search...">
+            <input type="text" name="search" class="form-control" placeholder="Search..." required>
         </div>
         <div>
             <select class="form-control" name="searchtype">

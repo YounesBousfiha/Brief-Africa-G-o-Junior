@@ -118,23 +118,23 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . '?id=' . $_GET['id']);?>" method="POST" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label class="form-label">Nom</label>
-                                <input type="text" name="nom" class="form-control" placeholder="nom..." value="">
+                                <input type="text" name="nom" class="form-control" placeholder="nom..." required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Description</label>
-                                <textarea class="form-control" name="description" placeholder="Description..."></textarea>
+                                <textarea class="form-control" name="description" placeholder="Description..." required></textarea>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Population</label>
-                                <input type="number" name="population" class="form-control" placeholder="Population...">
+                                <input type="number" name="population" class="form-control" placeholder="Population..." required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Image</label>
-                                <input type="file" name="image" class="form-control" placeholder="image...">
+                                <input type="file" name="image" class="form-control" placeholder="image..." required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Langue</label>
-                                <input type="text" name="langue" class="form-control" placeholder="langue...">
+                                <input type="text" name="langue" class="form-control" placeholder="langue..." required>
                             </div>
                             <div class="d-flex  flex-col justify-content-around">
                                 <button type="submit" name='action' value='modify' class="btn btn-primary">Update</button>
@@ -158,11 +158,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <form action="../../includes/login.php" method="POST">
                         <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="Email...">
+                            <input type="email" name="email" class="form-control" placeholder="Email..." required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input type="password" name="password" class="form-control" placeholder="Password...">
+                            <input type="password" name="password" class="form-control" placeholder="Password..." required>
                         </div>
                         <div>
                             <button type="submit" name="action" value="login" class="btn btn-primary w-100">Login</button>
@@ -261,7 +261,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     ?>
     <form class="d-flex justify-content-center mt-3" action="../pages/search.php" method="POST">
         <div>
-            <input type="text" name="search" class="form-control" placeholder="Search...">
+            <input type="text" name="search" class="form-control" placeholder="Search..." required>
         </div>
         <div>
             <select class="form-control" name="searchtype">

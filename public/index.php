@@ -130,7 +130,7 @@ if (isset($_POST['logout'])) {
     </nav>
     <form class="d-flex justify-content-center mt-3" action="./pages/search.php" method="POST">
         <div>
-            <input type="text" name="search" class="form-control" placeholder="Search...">
+            <input type="text" name="search" class="form-control" placeholder="Search..." required>
         </div>
         <div>
             <select class="form-control" name="searchtype">
