@@ -1,6 +1,7 @@
 <?php
 
     function renderPays($data) {
+        $population = number_format($data['Population']);
         return "
         <div class='card' style='width: 18rem;'>
             <img class='card-img-top' src='{$data['ImageURL']}' alt='Card image cap' width='262' height='262'>
@@ -9,7 +10,7 @@
                 <p class='card-text'>{$data['Description']}</p>
                 <div class='d-flex justify-content-around'>
                     <div>
-                        <span>{$data['Population']}<span>
+                        <span>{$population}<span>
                     </div>
                     <div>
                         <p>{$data['Langue']}<p>

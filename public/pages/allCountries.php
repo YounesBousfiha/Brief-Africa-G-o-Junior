@@ -149,12 +149,13 @@
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link active" href="#">Historique</a></li>
                     <li class="nav-item"><a class="nav-link active" href="#" style="color: rgb(0,0,0);">Our Method</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="../pages/allCountries.php" style="color: rgb(0,0,0);">all Countries</a></li>
                     <li class="nav-item"><a class="nav-link" href="#" style="color: rgb(0,0,0);">About US</a></li>
                     <li class="nav-item"><a class="nav-link" href="#" style="color: rgb(0,0,0);">Contact</a></li>
                 </ul>
-                <?php 
-                    if(!$_COOKIE['auth_token']) {
-                        echo '
+                <?php
+                if (!$_COOKIE['auth_token']) {
+                    echo '
                         <div class="d-flex justify-content-center">
                     <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#loginModal">
                         Login
@@ -163,16 +164,16 @@
                         Signup
                     </button>
                 </div>';
-                    } else {
-                        $user = ValidateUser($conn);
-                        echo '
-                        <span class="fw-bold me-3">Welcome, <span class="user-name">'. $user['Nom'] .'</span></span>
+                } else {
+                    $user = ValidateUser($conn);
+                    echo '
+                        <span class="fw-bold me-3">Welcome, <span class="user-name">' . $user['Nom'] . '</span></span>
                         <form method="POST">
-                    <button type="submit" name="action" value="logout"  class="btn btn-primary me-2">
+                    <button type="submit" name="logout"  class="btn btn-primary me-2">
                         Logout
                     </button>
                 </form>';
-                    }
+                }
                 ?>
             </div>
         </div>
